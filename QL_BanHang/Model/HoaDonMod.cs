@@ -29,7 +29,7 @@ namespace QL_BanHang.Model
         {
             string result = "";
             DataTable dt = new DataTable();
-            cmd.CommandText = "select top(1) MaHD from HoaDon order by MaHD desc";
+            cmd.CommandText = "select top(1) MaHD from HoaDon order by NgayLap desc";
             cmd.CommandType = CommandType.Text; 
             cmd.Connection = con.Connection;
             try
@@ -84,7 +84,7 @@ namespace QL_BanHang.Model
 
         public bool AddData(HoaDonObj hdObj)
         {
-            cmd.CommandText = "insert into HoaDon values ('" + hdObj.MaHoaDon + "', CONVERT (date,'" + hdObj.NgayLap + "'),'" + hdObj.NguoiLap + "','" + hdObj .KhachHang+ "')";
+            cmd.CommandText = "insert into HoaDon values ('" + hdObj.MaHoaDon + "', CONVERT (datetime,'" + hdObj.NgayLap + "'),'" + hdObj.NguoiLap + "','" + hdObj .KhachHang+ "')";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con.Connection;
             try

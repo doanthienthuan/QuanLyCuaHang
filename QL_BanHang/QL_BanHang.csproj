@@ -11,7 +11,8 @@
     <RootNamespace>QL_BanHang</RootNamespace>
     <AssemblyName>QL_BanHang</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
-    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -34,8 +35,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="AxShockwaveFlashObjects, Version=1.0.0.0, Culture=neutral, PublicKeyToken=692fbea5521e1304" />
+    <Reference Include="CrystalDecisions.CrystalReports.Engine, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.ReportSource, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Shared, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
+    <Reference Include="CrystalDecisions.Windows.Forms, Version=13.0.4000.0, Culture=neutral, PublicKeyToken=692fbea5521e1304, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -63,6 +71,12 @@
     <Compile Include="View\Config.Designer.cs">
       <DependentUpon>Config.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\crpHoaDon.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>crpHoaDon.rpt</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="View\frmHangHoa.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -74,6 +88,12 @@
     </Compile>
     <Compile Include="View\frmHoaDon.Designer.cs">
       <DependentUpon>frmHoaDon.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\frmInHoaDon.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="View\frmInHoaDon.Designer.cs">
+      <DependentUpon>frmInHoaDon.cs</DependentUpon>
     </Compile>
     <Compile Include="View\frmKhachHang.cs">
       <SubType>Form</SubType>
@@ -106,6 +126,11 @@
     <Compile Include="View\frmMain.Designer.cs">
       <DependentUpon>frmMain.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Report_Data\DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
@@ -114,15 +139,23 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
     <EmbeddedResource Include="View\Config.resx">
       <DependentUpon>Config.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\crpHoaDon.rpt">
+      <Generator>CrystalDecisions.VSDesigner.CodeGen.ReportCodeGenerator</Generator>
+      <LastGenOutput>crpHoaDon.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmHangHoa.resx">
       <DependentUpon>frmHangHoa.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmHoaDon.resx">
       <DependentUpon>frmHoaDon.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="View\frmInHoaDon.resx">
+      <DependentUpon>frmInHoaDon.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="View\frmKhachHang.resx">
       <DependentUpon>frmKhachHang.cs</DependentUpon>
@@ -136,6 +169,7 @@
     <EmbeddedResource Include="View\frmNhanVien.resx">
       <DependentUpon>frmNhanVien.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="app.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -145,8 +179,21 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <None Include="View\Report_Data\DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="View\Report_Data\DataSet1.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="View\Report_Data\DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Service Include="{C0C07587-41A7-46C8-8FBD-3F9C8EBE2DDC}" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

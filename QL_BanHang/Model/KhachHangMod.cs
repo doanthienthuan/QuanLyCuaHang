@@ -29,7 +29,7 @@ namespace QL_BanHang.Model
         {
             string result = "";
             DataTable dt = new DataTable();
-            cmd.CommandText = "select top(1) MaKH from KhachHang order by MaKH desc";
+            cmd.CommandText = "select top(1) MaKH from KhachHang";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con.Connection;
             try
@@ -148,6 +148,27 @@ namespace QL_BanHang.Model
                 con.CloseConn();
             }
             return false;
+        }
+        public int GetDiem(string ma)
+        {
+            DataTable dt = new DataTable();
+            cmd.CommandText = "select Diem from KhachHang Where MaKH = '" + ma + "'";
+            cmd.CommandType = CommandType.Text;
+            cmd.Connection = con.Connection;
+            try
+            {
+                SqlDataAdapter sda = new SqlDataAdapter(cmd);
+                sda.Fill(dt);
+                int diem = Int32.Parse(dt.Rows[0][0].ToString());
+                return diem;
+            }
+            catch (Exception ex)
+            {
+                string mex = ex.Message;
+                cmd.Dispose();
+                con.CloseConn();
+            }
+            return -1;
         }
     }
 }

@@ -42,7 +42,7 @@ namespace QL_BanHang
                 {
                     Program.con_string = @"Data Source="+server+";Initial Catalog="+db+";Integrated Security=True";
                 }
-                Application.Run(new frmDangNhap());
+                    Application.Run(new frmDangNhap());
             }
             
         }

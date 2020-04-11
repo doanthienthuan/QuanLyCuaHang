@@ -57,7 +57,11 @@ namespace QL_BanHang.Obiect
             get { return email; }
             set { email = value; }
         }
-
+        public KhachHangObj(string ma,int diem)
+        {
+            this.ma = ma;
+            this.diem = diem;
+        }
         public KhachHangObj() { }
         public KhachHangObj(string ma, string ten, string gioitinh, string namsinh, string diachi, string sdt, string email, int diem)
         {

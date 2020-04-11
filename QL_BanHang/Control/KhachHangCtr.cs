@@ -11,32 +11,36 @@ namespace QL_BanHang.Control
 {
     class KhachHangCtr
     {
-        KhachHangMod nvMod = new KhachHangMod();
+        KhachHangMod khMod = new KhachHangMod();
         public string AutoUpdateFK()
         {
-            return nvMod.AutoUpdateFK();
+            return khMod.AutoUpdateFK();
         }
         public DataTable GetData()
         {
-            return nvMod.GetData();
+            return khMod.GetData();
         }
         public bool AddData(KhachHangObj khObj)
         {
-            return nvMod.AddData(khObj);
+            return khMod.AddData(khObj);
         }
         public bool UpdData(KhachHangObj khObj)
         {
-            return nvMod.UpdData(khObj);
+            return khMod.UpdData(khObj);
         }
 
         public bool UpdDiem(KhachHangObj khObj)
         {
-            return nvMod.UpdDiem(khObj);
+            return khMod.UpdDiem(khObj);
         }
 
         public bool DelData(string ma)
         {
-            return nvMod.DelData(ma);
+            return khMod.DelData(ma);
+        }
+        public int GetDiem(string ma)
+        {
+            return khMod.GetDiem(ma);
         }
     }
 }

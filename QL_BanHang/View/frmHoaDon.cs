@@ -13,9 +13,10 @@ namespace QL_BanHang.View
 {
     public partial class frmHoaDon : Form
     {
+        KhachHangCtr khCtr = new KhachHangCtr();
         HoaDonCtr hdCtr = new HoaDonCtr();
         ChiTietCtr ctCtr = new ChiTietCtr();
-        HangHoaCtr hhctr = new HangHoaCtr();
+        HangHoaCtr hhctr = new HangHoaCtr();    
         DataTable dtDSCT = new System.Data.DataTable();
         int vitriclick = 0;
         
@@ -98,7 +99,7 @@ namespace QL_BanHang.View
         {
             txtMa.Text = hdCtr.AutoUpdateFK();
             txtNhanVien.Text = frmDangNhap.MSNV;
-            txtNgayLap.Text = DateTime.Now.Date.ToShortDateString();
+            txtNgayLap.Text = DateTime.Now.ToString();
             LoadcmbKhachHang();
             
         }
@@ -108,7 +109,7 @@ namespace QL_BanHang.View
             hdObj.MaHoaDon = txtMa.Text.Trim();
             hdObj.NgayLap = txtNgayLap.Text.Trim();
             hdObj.NguoiLap = txtNhanVien.Text.Trim();
-            hdObj.KhachHang = cmbKhachHang.SelectedValue.ToString();
+            hdObj.KhachHang = cmbKhachHang.SelectedValue.ToString().Trim();
         }
 
         private bool checktrung(string mahh)
@@ -169,6 +170,7 @@ namespace QL_BanHang.View
             LoadcmbHH();
             LoadcmbKhachHang();
 
+            
             dtDSCT.Rows.Clear();
             dtDSCT.Columns.Clear();
             dtDSCT.Columns.Add("MaHD");
@@ -199,18 +201,28 @@ namespace QL_BanHang.View
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            HoaDonObj hdObj = new HoaDonObj();
-            addData(hdObj);
-            if (hdCtr.AddData(hdObj))
+            if (dtDSCT.Rows.Count > 0)
             {
-                if (ctCtr.AddData(dtDSCT) && hhctr.UpdSL(dtDSCT))
-                    MessageBox.Show("Thêm hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                KhachHangObj khObj = new KhachHangObj(cmbKhachHang.SelectedValue.ToString().Trim(),Int32.Parse(Diemtxt.Text));
+                khCtr.UpdDiem(khObj);
+                HoaDonObj hdObj = new HoaDonObj();
+                addData(hdObj);
+                if (hdCtr.AddData(hdObj))
+                {
+                    if (ctCtr.AddData(dtDSCT) && hhctr.UpdSL(dtDSCT))
+                        MessageBox.Show("Thêm hóa đơn thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show("Thêm chi tiết không thành công!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
                 else
-                    MessageBox.Show("Thêm chi tiết không thành công!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Thêm hóa đơn không thành công!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                frmHoaDon_Load(sender, e);
+                
             }
             else
-                MessageBox.Show("Thêm hóa đơn không thành công!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            frmHoaDon_Load(sender,e);
+            {
+                MessageBox.Show("Hóa đơn không được rỗng!!");
+            }
         }
 
         private void btnCancel_Click(object sender, EventArgs e)
@@ -227,7 +239,8 @@ namespace QL_BanHang.View
 
         private void btnPrint_Click(object sender, EventArgs e)
         {
-            MessageBox.Show("Chức năng đang đc nâng cấp");
+            frmInHoaDon fr1 = new frmInHoaDon(dtDSCT);
+            fr1.Show();
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -248,7 +261,7 @@ namespace QL_BanHang.View
                             dr[3] = txtSL.Text;
                             dr[4] = (double.Parse(txtDonGia.Text) * int.Parse(txtSL.Text)).ToString();
                             dtDSCT.Rows.Add(dr);
-                        } catch(Exception ex)
+                        } catch
                         {
                             MessageBox.Show("Hãy chọn hàng hóa trước khi thêm");
                         }
@@ -276,6 +289,8 @@ namespace QL_BanHang.View
                 sum += int.Parse(dtDSCT.Rows[i][4].ToString());
             }
             TongTientxt.Text = sum.ToString();
+            Diemtxt.Text = (sum / 10000).ToString();
+            txtTongDiem.Text = (Int32.Parse(Diemtxt.Text) + Int32.Parse(txtKhDiem.Text)).ToString();
         }
 
         private void btnBot_Click(object sender, EventArgs e)
@@ -344,6 +359,36 @@ namespace QL_BanHang.View
         }
 
         private void lbThanhTien_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbKhachHang_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            txtKhDiem.Text = khCtr.GetDiem(cmbKhachHang.SelectedValue.ToString().Trim()).ToString();
+        }
+
+        private void txtNgayLap_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void groupBox3_Enter(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label13_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label10_Click_1(object sender, EventArgs e)
         {
 
         }
