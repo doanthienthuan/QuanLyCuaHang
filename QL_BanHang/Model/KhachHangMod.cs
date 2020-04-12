@@ -29,7 +29,7 @@ namespace QL_BanHang.Model
         {
             string result = "";
             DataTable dt = new DataTable();
-            cmd.CommandText = "select top(1) MaKH from KhachHang";
+            cmd.CommandText = "select top(1) MaKH from KhachHang order by MaKH desc";
             cmd.CommandType = CommandType.Text;
             cmd.Connection = con.Connection;
             try
